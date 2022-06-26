@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.Model.Customer;
+import com.example.demo.Model.Expense;
 import com.example.demo.Model.User;
 import com.example.demo.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,7 @@ public class UserService {
         userRepository.deleteUserById(id);
     }
 
+    //Verilen user'ı günceller.
     public User updateUser(User user){
         User foundUser;
         boolean isPresent = userRepository.getUserById(user.getId()).isPresent();
@@ -97,5 +99,30 @@ public class UserService {
         }
 
         return null;
+    }
+
+    //id'si verilen user'ın masraf (expense) girişi yapmasını sağlar.
+    public User addExpence(int userId, Expense expense){
+        User user;
+        boolean isPresent = userRepository.getUserById(userId).isPresent();
+        if (isPresent) {
+            user = getUserById(userId);
+            userRepository.addExpence(user, expense);
+            return user;
+        }
+        return null;
+    }
+
+    //id'si verilen user'ın, id'si verilen masrafını silmesini sağlar.
+    public void deleteExpence(int userId, int expenseId){
+        User user;
+        Expense expense;
+        user = getUserById(userId);
+        userRepository.deleteExpence(user, expenseId);
+    }
+
+    //id'si verilen User'ın bütün masraflarını getirir.
+    public List<Expense> findAllExpencesofUser(int userId){
+        return userRepository.findAllExpencesofUser(getUserById(userId));
     }
 }

@@ -24,8 +24,7 @@ public class User {
     private FirmType firmType;
     private Address address;
     private List<Customer> customerList = new ArrayList<>(10);
-
-
+    private List<Expense> expenseList = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -81,5 +80,13 @@ public class User {
 
     public void setCustomerList(List<Customer> customerList) {
         this.customerList = customerList;
+    }
+
+    public List<Expense> getExpenseList() {
+        return expenseList;
+    }
+
+    public void setExpenseList(List<Expense> expenseList) {
+        this.expenseList = expenseList;
     }
 }

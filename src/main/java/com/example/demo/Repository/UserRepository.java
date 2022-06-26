@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import com.example.demo.Model.Customer;
 import com.example.demo.Model.Enums.CustomerType;
+import com.example.demo.Model.Expense;
 import com.example.demo.Model.User;
 import org.springframework.stereotype.Repository;
 
@@ -49,5 +50,21 @@ public class UserRepository {
 
     public List<Customer> passiveCustomerOfUser(User user) {
         return user.getCustomerList().stream().filter(c -> c.getCustomerType().equals(CustomerType.PASSIVE)).collect(Collectors.toList());
+    }
+
+    //Verilen user'ın expense list'ine, parametrede verilen expense'i ekler.
+    public User addExpence(User user, Expense expense){
+        user.getExpenseList().add(expense);
+        return user;
+    }
+
+    public void deleteExpence(User user, int expenseId){
+        Expense expense = user.getExpenseList().stream().filter(e -> e.getId() == expenseId).findFirst().get();
+        user.getExpenseList().remove(expense);
+    }
+
+    //User'ın bütün masraflarını getirir.
+    public List<Expense> findAllExpencesofUser(User user){
+        return user.getExpenseList();
     }
 }

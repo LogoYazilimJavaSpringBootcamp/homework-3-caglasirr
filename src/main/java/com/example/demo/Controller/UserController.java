@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.websocket.server.PathParam;
 
 import com.example.demo.Model.Customer;
+import com.example.demo.Model.Expense;
 import com.example.demo.Model.User;
 import com.example.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,22 @@ public class UserController {
     @GetMapping(value = "/{id}/passiveCustomers")
     public List<Customer> getPassiveCustomersOfUser(@PathVariable int id) {
         return userService.passiveCustomerOfUser(id);
+    }
+
+    //User'ın masraf ekleme, silme, görüntüleme işlemlerini yapabildiği endpointler:
+    @PostMapping(value = "/{id}/expenses")
+    public User addExpense(@PathVariable int id, @RequestBody Expense expense) {
+        return userService.addExpence(id, expense);
+    }
+
+    @DeleteMapping(value = "/{userId}/expenses/{expenseId}")
+    public void deleteUser(@PathVariable int userId, @PathVariable int expenseId) {
+        userService.deleteExpence(userId, expenseId);
+    }
+
+    @GetMapping(value = "/{id}/expenses")
+    public List<Expense> findAllExpencesofUser(@PathVariable int id) {
+        return userService.findAllExpencesofUser(id);
     }
 
 }
