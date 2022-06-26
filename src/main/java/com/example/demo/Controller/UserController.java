@@ -86,5 +86,15 @@ public class UserController {
         return userService.findAllExpencesofUser(id);
     }
 
+    @GetMapping(value = "/{userId}/expenses/{expenseId}")
+    public Expense findAllExpencesofUser(@PathVariable int userId, @PathVariable int expenseId) {
+        return userService.findExpenceofUserById(userId, expenseId);
+    }
+
+    @PutMapping(value = "/{userId}/expenses")
+    public Expense updateUser(@PathVariable int userId, @RequestBody Expense expense) {
+        return userService.updateExpenseOfUser(userId,expense);
+    }
+
 }
 

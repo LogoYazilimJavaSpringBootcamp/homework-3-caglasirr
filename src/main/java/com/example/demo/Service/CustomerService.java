@@ -32,17 +32,21 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
+    //Yeni bir müşteri yaratır.
     public Customer create(Customer customer) {
         customerRepository.save(customer);
         return customer;
     }
 
+    //Bütün müşterileri getirir.
     public List<Customer> findAllCustomers(){
         return customerRepository.findAll();
     }
 
+    //Verilen id'ye sahip müşteriyi siler.
     public void deleteCustomerById(int id){customerRepository.deleteCustomerById(id);}
 
+    //Verilen id'ye sahip müşteriyi getirir.
     public Customer getCustomerById(int id) {
 
         boolean isPresent = customerRepository.getCustomerById(id).isPresent();
@@ -53,6 +57,7 @@ public class CustomerService {
 
     }
 
+    //Verilen müşteriyi günceller.
     public Customer updateUser(Customer customer){
         Customer foundCustomer;
         boolean isPresent = customerRepository.getCustomerById(customer.getId()).isPresent();

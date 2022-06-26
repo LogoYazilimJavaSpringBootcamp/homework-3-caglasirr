@@ -28,9 +28,12 @@ Uygulamamızın hızlı çalışması önemli ise REST kullanmak daha uygundur.<
 
 ** Eğer data boyutları uygulamamız için önem arz ediyorsa REST kullanmalıyız. 
 
-isbasi.com üye olup sisteme 3 yeni model ekleyin ve mimariye uygun şekilde
+• isbasi.com üye olup sisteme 3 yeni model ekleyin ve mimariye uygun şekilde
 CRUD işlemleri yapan endpointleri yazın. (50 Puan)
+<br>--Expense, PaymentStatus, Currency gibi modeller eklendi. Kullanıcının (User), masraf(Expense) girişi yapabildiği, masraflarını görüntüleyebildiği, silebildiği ve güncelleyebildiği endpointler yazıldı.
 
 • CustomerServisi için gerekli tüm endpoint’leri yazın. (10 Puan)
+<br>--CustomerController'da gerekli endpointler yazıldı.
 
 • Aktif ve pasif müşterileri listeleyen endpoint için gerekli kodu yazın. (10 Puan)
+<br>--UserController'da gerekli endpointler yazıldı.

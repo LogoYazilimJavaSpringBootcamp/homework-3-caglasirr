@@ -20,15 +20,18 @@ public class UserService {
 
     private UserRepository userRepository;
 
+    //Parametrede verilen user ile yeni bir user yaratır.
     public User createUser(User request) {
        return userRepository.save(request);
     }
 
+    //Bütün user'ları getirir.
     public List<User> getAllUsers() {
 
         return userRepository.findAll();
     }
 
+    //Email adresi verilen kullanıcıyı getirir.
     public User getUserByEmail(String email) {
         //kullanıcı bulunamadığında hata verilmeli
         //userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException());
@@ -43,6 +46,7 @@ public class UserService {
 
     }
 
+    //Id'si verilen kullanıcıyı getirir.
     public User getUserById(int id) {
 
         boolean isPresent = userRepository.getUserById(id).isPresent();
@@ -77,6 +81,7 @@ public class UserService {
 
     }
 
+    //Id'si verilen user'ı siler.
     public void deleteUserById(int id){
         userRepository.deleteUserById(id);
     }
@@ -124,5 +129,25 @@ public class UserService {
     //id'si verilen User'ın bütün masraflarını getirir.
     public List<Expense> findAllExpencesofUser(int userId){
         return userRepository.findAllExpencesofUser(getUserById(userId));
+    }
+
+    //Verilen userId'ye sahip kullanıcının, verilen expenseId'ye sahip masrafını getirir.
+    public Expense findExpenceofUserById(int userId, int expenseId){
+        return userRepository.findExpenceofUserById(getUserById(userId), expenseId);
+    }
+
+    //Verilen userId'ye sahip kullanıcının expense'ini günceller.
+    public Expense updateExpenseOfUser(int userId, Expense expense){
+        User user = getUserById(userId);
+        Expense expense_;
+
+        expense_ = findExpenceofUserById(user.getId(), expense.getId());
+        expense_.setFirmType(expense.getFirmType());
+        expense_.setBillNumber(expense.getBillNumber());
+        expense_.setCustomerName(expense.getCustomerName());
+        expense_.setPaymentStatus(expense.getPaymentStatus());
+        expense_.setCurrency(expense.getCurrency());
+
+        return userRepository.updateExpenseOfUser(user, expense_);
     }
 }
