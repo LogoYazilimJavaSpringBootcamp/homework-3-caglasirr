@@ -1,10 +1,10 @@
 package com.example.demo.Model;
 
 import com.example.demo.Model.Enums.CustomerType;
-
 import java.util.List;
 
 public class Customer {
+    private int id;
     private String name;
     private int age;
     private List<Order> orderList;
@@ -52,4 +52,11 @@ public class Customer {
         this.customerType = customerType;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

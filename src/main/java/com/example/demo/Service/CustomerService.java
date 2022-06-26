@@ -9,6 +9,7 @@ import com.example.demo.Model.Customer;
 import com.example.demo.Model.Enums.CustomerType;
 import com.example.demo.Model.Order;
 import com.example.demo.Model.Product;
+import com.example.demo.Model.User;
 import com.example.demo.Repository.CustomerRepository;
 import com.example.demo.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,8 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public CustomerService(OrderService orderService) {
-        this.orderService = orderService;
-    }
-
-    public void setOrderService(OrderService orderService) {
-        this.orderService = orderService;
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
     }
 
     public Customer create(Customer customer) {
@@ -40,15 +37,33 @@ public class CustomerService {
         return customer;
     }
 
-    private List<Customer> prepareCustomerList() {
-        List<Customer> customers = new ArrayList<>();
-        customers.add(new Customer("bilisim.io", 25, new ArrayList<>(), CustomerType.ACTIVE));
-        customers.add(new Customer("cem", 30, prepareOrderList(), CustomerType.ACTIVE));
-        customers.add(new Customer("ömer", 21, prepareOrderList(), CustomerType.ACTIVE));
-        customers.add(new Customer("haluk", 32, prepareOrderList(), CustomerType.ACTIVE));
-        customers.add(new Customer("halil", 25, prepareOrderList(), CustomerType.ACTIVE));
-        customers.add(new Customer("fatih", 18, prepareOrderList(), CustomerType.ACTIVE));
-        return customers;
+    public List<Customer> findAllCustomers(){
+        return customerRepository.findAll();
+    }
+
+    public void deleteCustomerById(int id){customerRepository.deleteCustomerById(id);}
+
+    public Customer getCustomerById(int id) {
+
+        boolean isPresent = customerRepository.getCustomerById(id).isPresent();
+        if (isPresent) {
+            return customerRepository.getCustomerById(id).get();
+        }
+        return null;
+
+    }
+
+    public Customer updateUser(Customer customer){
+        Customer foundCustomer;
+        boolean isPresent = customerRepository.getCustomerById(customer.getId()).isPresent();
+        if (isPresent) {
+            foundCustomer = customerRepository.getCustomerById(customer.getId()).get();
+            foundCustomer.setName(customer.getName());
+            foundCustomer.setCustomerType(customer.getCustomerType());
+            return  customerRepository.updateCustomer(foundCustomer);
+        }
+
+        return null;
     }
 
     private List<Order> prepareOrderList() {
@@ -64,7 +79,8 @@ public class CustomerService {
     private List<Product> prepareProductList(int randomOrderNumber) {
         List<Product> products = new ArrayList<>();
         Random random = new Random();
-products.add(new Product("MacBook Pro", random.nextDouble()));
+
+        products.add(new Product("MacBook Pro", random.nextDouble()));
         products.add(new Product("MacBook air", random.nextDouble()));
         products.add(new Product("Mac Mini", random.nextDouble()));
         products.add(new Product("iPhone 11", random.nextDouble()));
@@ -72,30 +88,5 @@ products.add(new Product("MacBook Pro", random.nextDouble()));
 
         return products.stream().limit(randomOrderNumber).collect(Collectors.toList());
     }
-
-    public List<Customer> getAllCustomers() {
-
-        // ProductService productService = new ProductService;
-        // singleton olduğunun kanıtı
-        System.out.println("CustomerService - productService:" + productService.toString());
-        System.out.println("CustomerService - productService:" + productService.url);
-        System.out.println("CustomerService - orderService:" + orderService.toString());
-
-        orderService.createOrder();
-
-        return prepareCustomerList();
-    }
-
-//    public List<Integer> listAllOrders(List<Customer> customerList){
-//        List<Integer> orders = new ArrayList();
-//        customerList.forEach(it -> orders.add(this.orderPrice(it.getOrder())));
-//        return orders;
-//    }
-
-    public List<Customer> findAllCustomers(){
-        return customerRepository.findAll();
-    }
-
-
 
 }

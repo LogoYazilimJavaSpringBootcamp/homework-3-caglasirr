@@ -23,4 +23,19 @@ public class CustomerRepository
         return customerList;
     }
 
+    public void deleteCustomerById(int id){
+        Customer deletedCustomer = customerList.stream().filter(c -> c.getId() == id).findFirst().get();
+        customerList.remove(deletedCustomer);
+    }
+
+    public Optional<Customer> getCustomerById(int id){
+        return customerList.stream().filter(c-> c.getId() == id).findFirst();
+    }
+
+    public Customer updateCustomer(Customer customer){
+        int index = customerList.indexOf(getCustomerById(customer.getId()).get());
+        customerList.set(index, customer);
+        return customer;
+    }
+
 }

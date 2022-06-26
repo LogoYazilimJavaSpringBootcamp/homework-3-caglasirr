@@ -16,9 +16,6 @@ public class UserRepository {
     private static List<User> userList = new ArrayList<>();
 
     public User save(User request) {
-        request.getCustomerList().add(new Customer("Onur", 23, new ArrayList<>(), CustomerType.ACTIVE));
-        request.getCustomerList().add(new Customer("Gizem", 23, new ArrayList<>(),CustomerType.ACTIVE));
-        request.getCustomerList().add(new Customer("Ceylan", 23, new ArrayList<>(), CustomerType.PASSIVE));
         userList.add(request);
         return request;
     }
@@ -53,18 +50,4 @@ public class UserRepository {
     public List<Customer> passiveCustomerOfUser(User user) {
         return user.getCustomerList().stream().filter(c -> c.getCustomerType().equals(CustomerType.PASSIVE)).collect(Collectors.toList());
     }
-
-
-//    public User updateUser(User user) {
-//
-//        String sql = "Update User set email = yeniemail where id =1";
-//
-//        User foundUser = userRepository.findById(user.getId()).get();
-//
-//        foundUser.setEmail(user.getEmail());
-//        foundUser.setSurname(user.getSurname());
-//
-//        return userRepository.save(foundUser);
-//    }
-
 }

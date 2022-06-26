@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Model.Customer;
+import com.example.demo.Model.User;
 import com.example.demo.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,5 +22,20 @@ public class CustomerController {
     @GetMapping
     public List<Customer> findAllCustomers() {
         return customerService.findAllCustomers();
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public void deleteCustomerById(@PathVariable int id) {
+        customerService.deleteCustomerById(id);
+    }
+
+    @GetMapping(value = "/{id}")
+    public Customer getUserById(@PathVariable int id) {
+        return customerService.getCustomerById(id);
+    }
+
+    @PutMapping
+    public Customer updateUser(@RequestBody Customer customer) {
+        return customerService.updateUser(customer);
     }
 }
