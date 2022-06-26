@@ -59,5 +59,15 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    @GetMapping(value = "/{id}/activeCustomers")
+    public List<Customer> getActiveCustomersOfUser(@PathVariable int id) {
+        return userService.activeCustomerOfUser(id);
+    }
+
+    @GetMapping(value = "/{id}/passiveCustomers")
+    public List<Customer> getPassiveCustomersOfUser(@PathVariable int id) {
+        return userService.passiveCustomerOfUser(id);
+    }
+
 }
 

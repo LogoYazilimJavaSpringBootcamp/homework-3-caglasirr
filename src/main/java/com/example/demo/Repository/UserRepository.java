@@ -3,8 +3,10 @@ package com.example.demo.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.example.demo.Model.Customer;
+import com.example.demo.Model.Enums.CustomerType;
 import com.example.demo.Model.User;
 import org.springframework.stereotype.Repository;
 
@@ -14,9 +16,9 @@ public class UserRepository {
     private static List<User> userList = new ArrayList<>();
 
     public User save(User request) {
-        request.getCustomerList().add(new Customer("Onur", 23, new ArrayList<>()));
-        request.getCustomerList().add(new Customer("Gizem", 23, new ArrayList<>()));
-        request.getCustomerList().add(new Customer("Ceylan", 23, new ArrayList<>()));
+        request.getCustomerList().add(new Customer("Onur", 23, new ArrayList<>(), CustomerType.ACTIVE));
+        request.getCustomerList().add(new Customer("Gizem", 23, new ArrayList<>(),CustomerType.ACTIVE));
+        request.getCustomerList().add(new Customer("Ceylan", 23, new ArrayList<>(), CustomerType.PASSIVE));
         userList.add(request);
         return request;
     }
@@ -42,6 +44,14 @@ public class UserRepository {
         int index = userList.indexOf(getUserById(user.getId()).get());
         userList.set(index, user);
         return user;
+    }
+
+    public List<Customer> activeCustomerOfUser(User user) {
+        return user.getCustomerList().stream().filter(c -> c.getCustomerType().equals(CustomerType.ACTIVE)).collect(Collectors.toList());
+    }
+
+    public List<Customer> passiveCustomerOfUser(User user) {
+        return user.getCustomerList().stream().filter(c -> c.getCustomerType().equals(CustomerType.PASSIVE)).collect(Collectors.toList());
     }
 
 

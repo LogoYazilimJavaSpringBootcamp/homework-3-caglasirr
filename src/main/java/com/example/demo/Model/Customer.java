@@ -1,19 +1,23 @@
 package com.example.demo.Model;
 
+import com.example.demo.Model.Enums.CustomerType;
+
 import java.util.List;
 
 public class Customer {
     private String name;
     private int age;
     private List<Order> orderList;
+    private CustomerType customerType;
 
     public Customer(){};
 
-    public Customer(String name, int age, List<Order> orderList) {
+    public Customer(String name, int age, List<Order> orderList, CustomerType customerType) {
         super();
         this.name = name;
         this.age = age;
         this.orderList = orderList;
+        this.customerType=customerType;
     }
 
     public String getName() {
@@ -38,6 +42,14 @@ public class Customer {
 
     public void setOrderList(List<Order> orderList) {
         this.orderList = orderList;
+    }
+
+    public CustomerType getCustomerType() {
+        return customerType;
+    }
+
+    public void setCustomerType(CustomerType customerType) {
+        this.customerType = customerType;
     }
 
 }

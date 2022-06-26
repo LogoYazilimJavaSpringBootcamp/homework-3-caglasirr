@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import com.example.demo.Model.Customer;
+import com.example.demo.Model.Enums.CustomerType;
 import com.example.demo.Model.Order;
 import com.example.demo.Model.Product;
 import com.example.demo.Repository.CustomerRepository;
@@ -41,12 +42,12 @@ public class CustomerService {
 
     private List<Customer> prepareCustomerList() {
         List<Customer> customers = new ArrayList<>();
-        customers.add(new Customer("bilisim.io", 25, new ArrayList<>()));
-        customers.add(new Customer("cem", 30, prepareOrderList()));
-        customers.add(new Customer("ömer", 21, prepareOrderList()));
-        customers.add(new Customer("haluk", 32, prepareOrderList()));
-        customers.add(new Customer("halil", 25, prepareOrderList()));
-        customers.add(new Customer("fatih", 18, prepareOrderList()));
+        customers.add(new Customer("bilisim.io", 25, new ArrayList<>(), CustomerType.ACTIVE));
+        customers.add(new Customer("cem", 30, prepareOrderList(), CustomerType.ACTIVE));
+        customers.add(new Customer("ömer", 21, prepareOrderList(), CustomerType.ACTIVE));
+        customers.add(new Customer("haluk", 32, prepareOrderList(), CustomerType.ACTIVE));
+        customers.add(new Customer("halil", 25, prepareOrderList(), CustomerType.ACTIVE));
+        customers.add(new Customer("fatih", 18, prepareOrderList(), CustomerType.ACTIVE));
         return customers;
     }
 

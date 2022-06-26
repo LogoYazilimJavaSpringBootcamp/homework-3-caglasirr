@@ -48,6 +48,30 @@ public class UserService {
 
     }
 
+    //id'si verilen user'ın aktif müşterilerini getirir.
+    public List<Customer> activeCustomerOfUser(int id) {
+        User user;
+        boolean isPresent = userRepository.getUserById(id).isPresent();
+        if (isPresent) {
+            user = getUserById(id);
+            return userRepository.activeCustomerOfUser(user);
+        }
+        return null;
+
+    }
+
+    //id'si verilen user'ın pasif müşterilerini getirir.
+    public List<Customer> passiveCustomerOfUser(int id) {
+        User user;
+        boolean isPresent = userRepository.getUserById(id).isPresent();
+        if (isPresent) {
+            user = getUserById(id);
+            return userRepository.passiveCustomerOfUser(user);
+        }
+        return null;
+
+    }
+
     public void deleteUserById(int id){
         userRepository.deleteUserById(id);
     }
@@ -70,27 +94,4 @@ public class UserService {
 
         return null;
     }
-
-//    public Configuration updateConfig(Configuration configuration) {
-//        Configuration selectedConfiguration = configurationDao.findById(configuration.getId()).orElse(configuration);
-//        selectedConfiguration.setName(configuration.getName());
-//        selectedConfiguration.setDescription(configuration.getDescription());
-//        selectedConfiguration.setSearchType(configuration.getSearchType());
-//        selectedConfiguration.setSourceType(configuration.getSourceType());
-//        selectedConfiguration.setCreateDate(configuration.getCreateDate());
-//        selectedConfiguration.setCreatedByUserName(configuration.getCreatedByUserName());
-//        return configurationDao.save(selectedConfiguration);
-//    }
-
-    //    public User updateUser(User user) {
-//
-//        String sql = "Update User set email = yeniemail where id =1";
-//
-//        User foundUser = userRepository.findById(user.getId()).get();
-//
-//        foundUser.setEmail(user.getEmail());
-//        foundUser.setSurname(user.getSurname());
-//
-//        return userRepository.save(foundUser);
-//    }
 }
